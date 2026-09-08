@@ -33,7 +33,7 @@
       },
       {
         "fecha": "2026-04-17",
-        "texto": "Se reencuentran. Empieza con bromas — así nace el mote 'Fiona'.",
+        "texto": "Se reencuentran. Empieza con bromas — así nace el apodo 'Fiona'.",
         "cita": {
           "quien": "Eliana",
           "texto": "No me voy a enfadar porque hoy 3 compis me dijeron que me veían radiante y Preciosa!!"
@@ -214,16 +214,12 @@
   ],
   "momentos_unicos": [
     {
-      "titulo": "El mote 'Fiona'",
+      "titulo": "El apodo 'Fiona'",
       "texto": "Nace en las bromas del reencuentro de abril — Henry la llama así en tono cariñoso-molesto, y se queda para siempre."
     },
     {
       "titulo": "El emoji 👾 'Maximiliano'",
       "texto": "Un emoji que empieza siendo de Henry y termina siendo 'de los dos'. Le ponen hasta nombre."
-    },
-    {
-      "titulo": "El colgante",
-      "texto": "A los pocos días de empezar la relación, Henry le compra un colgante — el primer regalo."
     },
     {
       "titulo": "El grupo de senderismo",
@@ -286,46 +282,62 @@
     "titulo": "Vales que puedes canjear cuando quieras",
     "items": [
       {
-        "title": "Otra sorpresa con detalles",
-        "note": "Vasitos con golosinas, un dibujo, cartas a mano — como en tu graduación.",
-        "code": "V-01"
-      },
-      {
-        "title": "Una noche de luna llena",
-        "note": "Te la vuelvo a dedicar, como aquella vez.",
-        "code": "V-02"
-      },
-      {
         "title": "Una ruta solo para dos",
         "note": "Como las del grupo de los domingos, pero sin nadie más.",
         "code": "V-03"
       },
       {
-        "title": "Te cocino yo",
-        "note": "Aunque cocines mejor que yo, esta vez le toca descansar a la chef.",
-        "code": "V-04"
+        "title": "Noche de serie y helado",
+        "note": "Tú escoges la serie, yo pongo el helado de mora.",
+        "code": "V-11"
       },
       {
-        "title": "Un partido de Ecuador juntos",
-        "note": "Con la camiseta puesta, sin perdernos ni un gol.",
-        "code": "V-05"
+        "title": "Crepes con de todo",
+        "note": "Chocolate, crema, fruta — sin límites esta vez.",
+        "code": "V-12"
       },
       {
-        "title": "Flores sin motivo",
-        "note": "Como aquella vez — solo porque sí.",
-        "code": "V-06"
+        "title": "Masaje relajante",
+        "note": "20 minutos, sin prisa y sin excusas.",
+        "code": "V-13"
+      },
+      {
+        "title": "Spa en casa",
+        "note": "Mascarillas, velas, y tu música preferida de fondo.",
+        "code": "V-14"
+      },
+      {
+        "title": "Noche de juegos de mesa",
+        "note": "Cartas o mesa, con tus snacks favoritos ya listos.",
+        "code": "V-15"
+      },
+      {
+        "title": "Micheladas o cañas",
+        "note": "Con algo rico para picar — sin más plan que ese.",
+        "code": "V-16"
+      },
+      {
+        "title": "Cita a ciegas",
+        "note": "Yo organizo toda la salida, tú solo te dejas llevar.",
+        "code": "V-17"
+      },
+      {
+        "title": "Algo nuevo juntos",
+        "note": "Un taller, una clase, un escape room — los dos empezando de cero.",
+        "code": "V-18"
       }
     ]
   },
   "lista_futuro": {
     "titulo": "La lista del futuro",
     "items": [
+      "Nuestro primer viaje solos como novios",
       "Vivir juntos",
       "Tener un perrito",
+      "Tener un hogar propio",
+      "Que conozcas mi familia",
       "Casarnos",
       "Tener a nuestra parejita — un niño y una niña",
-      "Tener un hogar propio",
-      "Que conozcas mi Ecuador",
       "Envejecer juntos"
     ]
   },
