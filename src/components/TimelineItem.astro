@@ -1,0 +1,91 @@
+---
+import type { NarrativaItem } from "../data/types";
+
+interface Props {
+  item: NarrativaItem;
+}
+
+const { item } = Astro.props;
+---
+
+<li class="hito reveal">
+  <span class="hito__punto" aria-hidden="true"></span>
+  <p class="label-meta hito__fecha">{item.fecha}</p>
+  <p class="hito__texto">{item.texto}</p>
+
+  {
+    item.cita && (
+      <blockquote class="hito__cita">
+        <p>“{item.cita.texto}”</p>
+        <cite>— {item.cita.quien}</cite>
+      </blockquote>
+    )
+  }
+
+  {item.imagen && <img class="hito__media" src={item.imagen} alt="" loading="lazy" />}
+  {
+    item.video && (
+      <video class="hito__media" src={item.video} controls preload="none" />
+    )
+  }
+</li>
+
+<style>
+  .hito {
+    position: relative;
+    list-style: none;
+    padding-left: var(--space-5);
+    padding-bottom: var(--space-6);
+    border-left: 1px solid rgba(168, 66, 47, 0.25);
+  }
+
+  .hito:last-child {
+    border-left-color: transparent;
+    padding-bottom: 0;
+  }
+
+  .hito__punto {
+    position: absolute;
+    left: -5px;
+    top: 6px;
+    width: 9px;
+    height: 9px;
+    border-radius: var(--radius-full);
+    background: var(--color-accent);
+  }
+
+  .hito__fecha {
+    margin-bottom: var(--space-2);
+  }
+
+  .hito__texto {
+    font-family: var(--font-sans);
+    font-weight: 400;
+    font-size: 16px;
+    color: var(--color-ink);
+  }
+
+  .hito__cita {
+    margin-top: var(--space-3);
+    padding-left: var(--space-3);
+    border-left: 2px solid var(--color-accent-2);
+    font-family: var(--font-serif);
+    font-style: italic;
+    color: var(--color-ink-soft);
+  }
+
+  .hito__cita cite {
+    display: block;
+    margin-top: var(--space-1);
+    font-family: var(--font-mono);
+    font-style: normal;
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .hito__media {
+    margin-top: var(--space-3);
+    border-radius: var(--radius-sm);
+  }
+</style>

@@ -1,0 +1,20 @@
+---
+import type { ComoEmpezo as ComoEmpezoData } from "../data/types";
+import Timeline from "./Timeline.astro";
+
+interface Props {
+  data: ComoEmpezoData;
+}
+
+const { data } = Astro.props;
+const totalHitos = data.narrativa.length;
+---
+
+<section id="como-empezo" class="seccion" aria-labelledby="como-empezo-titulo">
+  <header class="seccion__cabecera reveal">
+    <p class="label-meta">capítulo uno · {totalHitos} hitos</p>
+    <h2 id="como-empezo-titulo">{data.titulo}</h2>
+  </header>
+
+  <Timeline items={data.narrativa} />
+</section>

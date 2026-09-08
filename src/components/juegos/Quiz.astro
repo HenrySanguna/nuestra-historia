@@ -1,0 +1,182 @@
+---
+import type { NarrativaItem } from "../../data/types";
+
+interface Props {
+  narrativa: NarrativaItem[];
+}
+
+const { narrativa } = Astro.props;
+
+const ISO_FECHA = /^\d{4}-\d{2}-\d{2}$/;
+const preguntas = narrativa
+  .filter((item) => ISO_FECHA.test(item.fecha))
+  .map((item) => ({ texto: item.texto, fecha: item.fecha }));
+---
+
+{
+  preguntas.length >= 4 && (
+    <section id="juego-fecha" class="seccion juego" aria-labelledby="juego-fecha-titulo">
+      <header class="seccion__cabecera reveal">
+        <p class="label-meta">juego · la fecha</p>
+        <h2 id="juego-fecha-titulo">¿En qué fecha pasó esto?</h2>
+      </header>
+
+      <div class="quiz-carta reveal" data-quiz={JSON.stringify(preguntas)}>
+        <p class="quiz-carta__texto" data-quiz-texto />
+        <div class="quiz-carta__opciones" data-quiz-opciones />
+        <p class="label-meta quiz-carta__feedback" data-quiz-feedback></p>
+        <button type="button" class="quiz-carta__siguiente" data-quiz-siguiente hidden>
+          Siguiente pregunta
+        </button>
+      </div>
+    </section>
+  )
+}
+
+<script>
+  interface Pregunta {
+    texto: string;
+    fecha: string;
+  }
+
+  function formatear(fecha: string): string {
+    return new Intl.DateTimeFormat("es-ES", {
+      day: "2-digit",
+      month: "long",
+      year: "numeric",
+    }).format(new Date(`${fecha}T00:00:00`));
+  }
+
+  function barajar<T>(arr: T[]): T[] {
+    const copia = [...arr];
+    for (let i = copia.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [copia[i], copia[j]] = [copia[j], copia[i]];
+    }
+    return copia;
+  }
+
+  document.querySelectorAll<HTMLElement>("[data-quiz]").forEach((carta) => {
+    const preguntas: Pregunta[] = JSON.parse(carta.dataset.quiz ?? "[]");
+    const textoEl = carta.querySelector<HTMLElement>("[data-quiz-texto]");
+    const opcionesEl = carta.querySelector<HTMLElement>("[data-quiz-opciones]");
+    const feedbackEl = carta.querySelector<HTMLElement>("[data-quiz-feedback]");
+    const siguienteBtn = carta.querySelector<HTMLButtonElement>("[data-quiz-siguiente]");
+
+    let restantes = barajar(preguntas.map((_, i) => i));
+    let actual: Pregunta;
+
+    function nuevaPregunta() {
+      if (restantes.length === 0) restantes = barajar(preguntas.map((_, i) => i));
+      const indice = restantes.pop()!;
+      actual = preguntas[indice];
+
+      if (textoEl) textoEl.textContent = actual.texto;
+      if (feedbackEl) feedbackEl.textContent = "";
+      if (siguienteBtn) siguienteBtn.hidden = true;
+      if (!opcionesEl) return;
+
+      const distractoras = barajar(
+        preguntas.map((p) => p.fecha).filter((f) => f !== actual.fecha)
+      ).slice(0, 3);
+      const opciones = barajar([actual.fecha, ...distractoras]);
+
+      opcionesEl.innerHTML = "";
+      opciones.forEach((fecha) => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "quiz-opcion";
+        btn.textContent = formatear(fecha);
+        btn.addEventListener("click", () => responder(fecha, btn));
+        opcionesEl.appendChild(btn);
+      });
+    }
+
+    function responder(elegida: string, btn: HTMLButtonElement) {
+      if (!opcionesEl) return;
+      const botones = Array.from(opcionesEl.querySelectorAll<HTMLButtonElement>("button"));
+      botones.forEach((b) => (b.disabled = true));
+
+      const acierto = elegida === actual.fecha;
+      btn.classList.add(acierto ? "quiz-opcion--ok" : "quiz-opcion--mal");
+      if (!acierto) {
+        botones
+          .find((b) => b.textContent === formatear(actual.fecha))
+          ?.classList.add("quiz-opcion--ok");
+      }
+      if (feedbackEl) {
+        feedbackEl.textContent = acierto ? "sí, así fue" : "no era esa";
+      }
+      if (siguienteBtn) siguienteBtn.hidden = false;
+    }
+
+    siguienteBtn?.addEventListener("click", nuevaPregunta);
+    nuevaPregunta();
+  });
+</script>
+
+<style>
+  .quiz-carta {
+    max-width: 420px;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .quiz-carta__texto {
+    font-family: var(--font-serif);
+    font-size: 20px;
+    line-height: 1.5;
+    margin-bottom: var(--space-5);
+  }
+
+  .quiz-carta__opciones {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  :global(.quiz-opcion) {
+    font-family: var(--font-sans);
+    font-size: 15px;
+    padding: var(--space-3) var(--space-4);
+    background: rgba(251, 248, 241, 0.08);
+    border: 1px solid rgba(251, 248, 241, 0.3);
+    border-radius: var(--radius-sm);
+    color: var(--color-surface);
+    cursor: pointer;
+    text-align: left;
+  }
+
+  :global(.quiz-opcion:disabled) {
+    cursor: default;
+  }
+
+  :global(.quiz-opcion--ok) {
+    border-color: var(--color-accent-2);
+    background: rgba(122, 138, 106, 0.35);
+  }
+
+  :global(.quiz-opcion--mal) {
+    border-color: var(--color-accent);
+    background: rgba(168, 66, 47, 0.35);
+  }
+
+  .quiz-carta__feedback {
+    margin-top: var(--space-4);
+    min-height: 1.5em;
+  }
+
+  .quiz-carta__siguiente {
+    margin-top: var(--space-3);
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    font-size: 12px;
+    padding: var(--space-3) var(--space-5);
+    background: transparent;
+    border: 1px solid var(--color-surface);
+    color: var(--color-surface);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+  }
+</style>

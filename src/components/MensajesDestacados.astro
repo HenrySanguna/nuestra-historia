@@ -1,0 +1,112 @@
+---
+import type { MensajeDestacado } from "../data/types";
+
+interface Props {
+  mensajes: MensajeDestacado[];
+}
+
+const { mensajes } = Astro.props;
+const total = mensajes.length;
+
+function formatearFecha(fecha: string): string {
+  return new Intl.DateTimeFormat("es-ES", { day: "2-digit", month: "short" }).format(
+    new Date(`${fecha}T00:00:00`)
+  );
+}
+---
+
+{
+  total > 0 && (
+    <section id="mensajes" class="seccion" aria-labelledby="mensajes-titulo">
+      <header class="seccion__cabecera reveal">
+        <p class="label-meta">capítulo · {total} mensajes</p>
+        <h2 id="mensajes-titulo">Mensajes que guardé</h2>
+      </header>
+
+      <div class="mensajes-carril reveal" data-mensajes-carril>
+        {mensajes.map((mensaje, i) => (
+          <article class="mensaje-carta" data-mensaje-index={i}>
+            <p class="mensaje-carta__texto">{mensaje.texto}</p>
+            <p class="label-meta mensaje-carta__pie">
+              {mensaje.quien} · {formatearFecha(mensaje.fecha)}
+            </p>
+          </article>
+        ))}
+      </div>
+
+      <p class="label-meta mensajes-contador">
+        <span data-mensaje-actual>1</span> / {total} · desliza para pasar →
+      </p>
+    </section>
+  )
+}
+
+<script>
+  document.querySelectorAll<HTMLElement>("[data-mensajes-carril]").forEach((carril) => {
+    const cartas = Array.from(carril.querySelectorAll<HTMLElement>("[data-mensaje-index]"));
+    const contador = carril
+      .closest("section")
+      ?.querySelector<HTMLElement>("[data-mensaje-actual]");
+    if (!contador || cartas.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries.find((entry) => entry.isIntersecting);
+        if (visible) {
+          contador.textContent = String(
+            Number((visible.target as HTMLElement).dataset.mensajeIndex) + 1
+          );
+        }
+      },
+      { root: carril, threshold: 0.6 }
+    );
+
+    cartas.forEach((carta) => observer.observe(carta));
+  });
+</script>
+
+<style>
+  .mensajes-carril {
+    display: flex;
+    gap: var(--space-4);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: var(--space-2) var(--space-5) var(--space-4);
+    margin: 0 calc(var(--space-5) * -1);
+    scrollbar-width: none;
+  }
+
+  .mensajes-carril::-webkit-scrollbar {
+    display: none;
+  }
+
+  .mensaje-carta {
+    flex: 0 0 min(320px, 82vw);
+    scroll-snap-align: center;
+    background: var(--color-surface);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-soft);
+    padding: var(--space-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    justify-content: space-between;
+    min-height: 160px;
+  }
+
+  .mensaje-carta__texto {
+    font-family: var(--font-serif);
+    font-size: 18px;
+    line-height: 1.5;
+    color: var(--color-ink);
+  }
+
+  .mensaje-carta__pie {
+    align-self: flex-start;
+  }
+
+  .mensajes-contador {
+    text-align: center;
+    margin-top: var(--space-3);
+  }
+</style>

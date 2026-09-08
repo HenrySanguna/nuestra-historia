@@ -1,0 +1,21 @@
+---
+import type { NarrativaItem } from "../data/types";
+import TimelineItem from "./TimelineItem.astro";
+
+interface Props {
+  items: NarrativaItem[];
+}
+
+const { items } = Astro.props;
+---
+
+<ol class="timeline">
+  {items.map((item) => <TimelineItem item={item} />)}
+</ol>
+
+<style>
+  .timeline {
+    max-width: 640px;
+    margin-inline: auto;
+  }
+</style>

@@ -1,0 +1,92 @@
+---
+import type { NarrativaItem, MomentoUnico, MediaPendiente } from "../data/types";
+
+interface Props {
+  narrativa: NarrativaItem[];
+  momentos: MomentoUnico[];
+  mediaPendiente: MediaPendiente;
+}
+
+const { narrativa, momentos, mediaPendiente } = Astro.props;
+
+interface MediaItem {
+  src: string;
+  tipo: "imagen" | "video";
+}
+
+const media: MediaItem[] = [
+  ...narrativa.flatMap((item) => [
+    item.imagen ? { src: item.imagen, tipo: "imagen" as const } : null,
+    item.video ? { src: item.video, tipo: "video" as const } : null,
+  ]),
+  ...momentos.flatMap((momento) => [
+    momento.imagen ? { src: momento.imagen, tipo: "imagen" as const } : null,
+    momento.video ? { src: momento.video, tipo: "video" as const } : null,
+  ]),
+].filter((item): item is MediaItem => item !== null);
+---
+
+<section id="galeria" class="seccion" aria-labelledby="galeria-titulo">
+  <header class="seccion__cabecera reveal">
+    <p class="label-meta">galería</p>
+    <h2 id="galeria-titulo">Lo que fuimos guardando</h2>
+  </header>
+
+  {
+    media.length > 0 && (
+      <div class="galeria-grid reveal">
+        {media.map((item) =>
+          item.tipo === "imagen" ? (
+            <img src={item.src} alt="" loading="lazy" />
+          ) : (
+            <video src={item.src} controls preload="none" />
+          )
+        )}
+      </div>
+    )
+  }
+
+  <div class="galeria-cta reveal">
+    {mediaPendiente.album_colaborativo_url ? (
+      <a href={mediaPendiente.album_colaborativo_url} target="_blank" rel="noopener noreferrer">
+        Añade tus fotos
+      </a>
+    ) : (
+      <p class="label-meta">(falta el enlace del álbum de Google Photos)</p>
+    )}
+  </div>
+</section>
+
+<style>
+  .galeria-grid {
+    max-width: 640px;
+    margin-inline: auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-3);
+    margin-bottom: var(--space-6);
+  }
+
+  .galeria-grid img,
+  .galeria-grid video {
+    border-radius: var(--radius-sm);
+    aspect-ratio: 1;
+    object-fit: cover;
+  }
+
+  .galeria-cta {
+    text-align: center;
+  }
+
+  .galeria-cta a {
+    display: inline-block;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    font-size: 12px;
+    padding: var(--space-3) var(--space-5);
+    border: 1px solid var(--color-accent);
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+  }
+</style>

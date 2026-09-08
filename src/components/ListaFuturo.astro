@@ -1,0 +1,122 @@
+---
+import type { ListaFuturo as ListaFuturoData } from "../data/types";
+
+interface Props {
+  data: ListaFuturoData;
+}
+
+const { data } = Astro.props;
+const total = data.items.length;
+---
+
+{
+  total > 0 && (
+    <section id="lista-futuro" class="seccion" aria-labelledby="lista-futuro-titulo">
+      <header class="seccion__cabecera reveal">
+        <p class="label-meta" data-futuro-resumen>
+          0 de {total}
+        </p>
+        <h2 id="lista-futuro-titulo">{data.titulo}</h2>
+      </header>
+
+      <ul class="futuro-lista reveal" data-futuro-lista>
+        {data.items.map((texto, i) => (
+          <li>
+            <label class="futuro-item">
+              <input type="checkbox" data-futuro-index={i} />
+              <span>{texto}</span>
+            </label>
+          </li>
+        ))}
+      </ul>
+
+      <p class="label-meta futuro-pie">y todo lo que se nos ocurra después</p>
+    </section>
+  )
+}
+
+<script>
+  const STORAGE_KEY = "nuestra-historia:lista-futuro";
+
+  function leerMarcados(): number[] {
+    try {
+      return JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "[]");
+    } catch {
+      return [];
+    }
+  }
+
+  function guardarMarcados(indices: number[]) {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(indices));
+    } catch {
+      /* localStorage no disponible: la sesión sigue funcionando sin persistir */
+    }
+  }
+
+  const lista = document.querySelector<HTMLElement>("[data-futuro-lista]");
+  const resumen = document.querySelector<HTMLElement>("[data-futuro-resumen]");
+  if (lista) {
+    const marcados = new Set(leerMarcados());
+    const checkboxes = Array.from(
+      lista.querySelectorAll<HTMLInputElement>("input[data-futuro-index]")
+    );
+
+    function pintar() {
+      checkboxes.forEach((checkbox) => {
+        const indice = Number(checkbox.dataset.futuroIndex);
+        checkbox.checked = marcados.has(indice);
+      });
+      if (resumen) resumen.textContent = `${marcados.size} de ${checkboxes.length}`;
+    }
+
+    lista.addEventListener("change", (event) => {
+      const checkbox = event.target as HTMLInputElement;
+      const indice = Number(checkbox.dataset.futuroIndex);
+      if (Number.isNaN(indice)) return;
+      if (checkbox.checked) {
+        marcados.add(indice);
+      } else {
+        marcados.delete(indice);
+      }
+      guardarMarcados([...marcados]);
+      pintar();
+    });
+
+    pintar();
+  }
+</script>
+
+<style>
+  .futuro-lista {
+    list-style: none;
+    max-width: 480px;
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .futuro-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-4);
+    background: var(--color-surface);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  .futuro-item input {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--color-accent-2);
+  }
+
+  .futuro-pie {
+    max-width: 480px;
+    margin: var(--space-4) auto 0;
+    text-align: center;
+  }
+</style>

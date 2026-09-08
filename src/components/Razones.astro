@@ -1,0 +1,125 @@
+---
+import type { Razones as RazonesData } from "../data/types";
+
+interface Props {
+  data: RazonesData;
+}
+
+const { data } = Astro.props;
+const total = data.items.length;
+---
+
+{
+  total > 0 && (
+    <section id="razones" class="seccion" aria-labelledby="razones-titulo">
+      <header class="seccion__cabecera reveal">
+        <p class="label-meta">capítulo · {total} razones</p>
+        <h2 id="razones-titulo">{data.titulo}</h2>
+      </header>
+
+      <div class="razon-carta reveal" data-razones={JSON.stringify(data.items)}>
+        <p class="razon-carta__numero">
+          <span data-razon-actual>01</span>
+          <span class="razon-carta__de">de {String(total).padStart(2, "0")}</span>
+        </p>
+        <p class="razon-carta__texto" data-razon-texto>{data.items[0]}</p>
+        <button type="button" class="razon-carta__boton" data-razon-boton>
+          Dame otra
+        </button>
+        <p class="label-meta razon-carta__restantes" data-razon-restantes></p>
+      </div>
+    </section>
+  )
+}
+
+<script>
+  document.querySelectorAll<HTMLElement>("[data-razones]").forEach((carta) => {
+    const items: string[] = JSON.parse(carta.dataset.razones ?? "[]");
+    const numeroEl = carta.querySelector<HTMLElement>("[data-razon-actual]");
+    const textoEl = carta.querySelector<HTMLElement>("[data-razon-texto]");
+    const restantesEl = carta.querySelector<HTMLElement>("[data-razon-restantes]");
+    const boton = carta.querySelector<HTMLButtonElement>("[data-razon-boton]");
+
+    let pendientes = items.map((_, i) => i);
+    let actual = 0;
+
+    function mostrar(indice: number) {
+      actual = indice;
+      if (numeroEl) numeroEl.textContent = String(actual + 1).padStart(2, "0");
+      if (textoEl) textoEl.textContent = items[actual];
+      if (restantesEl) {
+        const quedan = pendientes.length;
+        restantesEl.textContent =
+          quedan === 0 ? "las volviste a ver todas" : `quedan ${quedan} sin salir`;
+      }
+    }
+
+    boton?.addEventListener("click", () => {
+      pendientes = pendientes.filter((i) => i !== actual);
+      if (pendientes.length === 0) {
+        pendientes = items.map((_, i) => i).filter((i) => i !== actual);
+      }
+      const siguiente = pendientes[Math.floor(Math.random() * pendientes.length)];
+      mostrar(siguiente);
+    });
+
+    pendientes = pendientes.filter((i) => i !== 0);
+    mostrar(0);
+  });
+</script>
+
+<style>
+  .razon-carta {
+    max-width: 420px;
+    margin-inline: auto;
+    padding: var(--space-6) var(--space-5);
+    background: var(--color-surface);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-soft);
+    text-align: center;
+  }
+
+  .razon-carta__numero {
+    font-family: var(--font-serif);
+    font-size: 40px;
+    color: var(--color-accent);
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: var(--space-2);
+  }
+
+  .razon-carta__de {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--color-ink-faint);
+  }
+
+  .razon-carta__texto {
+    margin-top: var(--space-4);
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 20px;
+    line-height: 1.4;
+    color: var(--color-ink);
+    min-height: 4em;
+  }
+
+  .razon-carta__boton {
+    margin-top: var(--space-5);
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    font-size: 12px;
+    padding: var(--space-3) var(--space-5);
+    background: transparent;
+    border: 1px solid var(--color-accent);
+    color: var(--color-accent);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+  }
+
+  .razon-carta__restantes {
+    margin-top: var(--space-3);
+  }
+</style>

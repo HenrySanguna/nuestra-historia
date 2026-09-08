@@ -1,17 +1,64 @@
 ---
+import "../styles/global.css";
+import moments from "../data/moments.json";
+import type { MomentsData } from "../data/types";
+import Intro from "../components/Intro.astro";
+import ComoEmpezo from "../components/ComoEmpezo.astro";
+import MensajesDestacados from "../components/MensajesDestacados.astro";
+import MomentoUnico from "../components/MomentoUnico.astro";
+import Razones from "../components/Razones.astro";
+import Vales from "../components/Vales.astro";
+import MasFuertes from "../components/MasFuertes.astro";
+import Galeria from "../components/Galeria.astro";
+import ListaFuturo from "../components/ListaFuturo.astro";
+import CartaFinal from "../components/CartaFinal.astro";
+import Quiz from "../components/juegos/Quiz.astro";
+import QuienLoDijo from "../components/juegos/QuienLoDijo.astro";
 
+const data = moments as MomentsData;
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="color-scheme" content="light" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>Para ti</title>
+  </head>
+  <body>
+    <Intro meta={data.meta} />
+    <ComoEmpezo data={data.como_empezo} />
+    <MensajesDestacados mensajes={data.mensajes_destacados} />
+    <QuienLoDijo narrativa={data.como_empezo.narrativa} mensajes={data.mensajes_destacados} meta={data.meta} />
+    <MomentoUnico momentos={data.momentos_unicos} />
+    <Quiz narrativa={data.como_empezo.narrativa} />
+    <Razones data={data.razones} />
+    <Vales data={data.vales} />
+    <MasFuertes data={data.mas_fuertes} />
+    <Galeria
+      narrativa={data.como_empezo.narrativa}
+      momentos={data.momentos_unicos}
+      mediaPendiente={data.media_pendiente}
+    />
+    <ListaFuturo data={data.lista_futuro} />
+    <CartaFinal data={data.carta_final} />
+
+    <script>
+      const observer = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              observer.unobserve(entry.target);
+            }
+          }
+        },
+        { threshold: 0.15 }
+      );
+
+      document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+    </script>
+  </body>
 </html>

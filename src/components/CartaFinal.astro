@@ -1,0 +1,46 @@
+---
+import type { CartaFinal } from "../data/types";
+
+interface Props {
+  data: CartaFinal;
+}
+
+const { data } = Astro.props;
+// data.contenido queda vacío a propósito: es el único texto que tiene que
+// salir de Henry, nunca generado. Sin contenido, la sección no se muestra.
+---
+
+{
+  data.contenido && (
+    <section id="carta-final" class="seccion" aria-labelledby="carta-final-titulo">
+      <div class="carta reveal">
+        <p class="label-meta">y esto es lo último</p>
+        <h2 id="carta-final-titulo">{data.titulo}</h2>
+        <p class="carta__cuerpo">{data.contenido}</p>
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .carta {
+    max-width: 560px;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .carta h2 {
+    font-family: var(--font-serif);
+    font-weight: 300;
+    font-size: clamp(1.6rem, 5vw + 1rem, 2.2rem);
+    margin: var(--space-2) 0 var(--space-6);
+    color: var(--color-ink);
+  }
+
+  .carta__cuerpo {
+    font-family: var(--font-serif);
+    font-size: 18px;
+    line-height: 1.8;
+    text-align: left;
+  }
+</style>

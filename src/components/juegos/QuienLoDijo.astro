@@ -1,0 +1,179 @@
+---
+import type { NarrativaItem, MensajeDestacado, Meta } from "../../data/types";
+
+interface Props {
+  narrativa: NarrativaItem[];
+  mensajes: MensajeDestacado[];
+  meta: Meta;
+}
+
+const { narrativa, mensajes, meta } = Astro.props;
+
+const citas = [
+  ...narrativa
+    .filter((item) => item.cita)
+    .map((item) => ({ texto: item.cita!.texto, quien: item.cita!.quien })),
+  ...mensajes.map((m) => ({ texto: m.texto, quien: m.quien })),
+];
+---
+
+{
+  citas.length >= 4 && (
+    <section id="juego-quien-lo-dijo" class="seccion juego" aria-labelledby="quien-lo-dijo-titulo">
+      <header class="seccion__cabecera reveal">
+        <p class="label-meta">juego · quién lo dijo</p>
+        <h2 id="quien-lo-dijo-titulo">¿Tú o yo?</h2>
+      </header>
+
+      <div
+        class="qld-carta reveal"
+        data-qld={JSON.stringify(citas)}
+        data-qld-el={meta.nombres.el}
+        data-qld-ella={meta.nombres.ella}
+      >
+        <p class="qld-carta__texto" data-qld-texto></p>
+        <div class="qld-carta__opciones">
+          <button type="button" data-qld-boton={meta.nombres.el}>
+            {meta.nombres.el}
+          </button>
+          <button type="button" data-qld-boton={meta.nombres.ella}>
+            {meta.nombres.ella}
+          </button>
+        </div>
+        <p class="label-meta qld-carta__feedback" data-qld-feedback></p>
+        <button type="button" class="qld-carta__siguiente" data-qld-siguiente hidden>
+          Siguiente frase
+        </button>
+      </div>
+    </section>
+  )
+}
+
+<script>
+  interface Cita {
+    texto: string;
+    quien: string;
+  }
+
+  function barajar<T>(arr: T[]): T[] {
+    const copia = [...arr];
+    for (let i = copia.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [copia[i], copia[j]] = [copia[j], copia[i]];
+    }
+    return copia;
+  }
+
+  document.querySelectorAll<HTMLElement>("[data-qld]").forEach((carta) => {
+    const citas: Cita[] = JSON.parse(carta.dataset.qld ?? "[]");
+    const textoEl = carta.querySelector<HTMLElement>("[data-qld-texto]");
+    const feedbackEl = carta.querySelector<HTMLElement>("[data-qld-feedback]");
+    const siguienteBtn = carta.querySelector<HTMLButtonElement>("[data-qld-siguiente]");
+    const botones = Array.from(
+      carta.querySelectorAll<HTMLButtonElement>("[data-qld-boton]")
+    );
+
+    let restantes = barajar(citas.map((_, i) => i));
+    let actual: Cita;
+
+    function nuevaCita() {
+      if (restantes.length === 0) restantes = barajar(citas.map((_, i) => i));
+      actual = citas[restantes.pop()!];
+
+      if (textoEl) textoEl.textContent = `“${actual.texto}”`;
+      if (feedbackEl) feedbackEl.textContent = "";
+      if (siguienteBtn) siguienteBtn.hidden = true;
+      botones.forEach((b) => {
+        b.disabled = false;
+        b.classList.remove("qld-opcion--ok", "qld-opcion--mal");
+      });
+    }
+
+    botones.forEach((boton) => {
+      boton.addEventListener("click", () => {
+        botones.forEach((b) => (b.disabled = true));
+        const acierto = boton.dataset.qldBoton === actual.quien;
+        boton.classList.add(acierto ? "qld-opcion--ok" : "qld-opcion--mal");
+        if (!acierto) {
+          botones
+            .find((b) => b.dataset.qldBoton === actual.quien)
+            ?.classList.add("qld-opcion--ok");
+        }
+        if (feedbackEl) feedbackEl.textContent = acierto ? "sí, esa fuiste tú" : "no, esa no era";
+        if (siguienteBtn) siguienteBtn.hidden = false;
+      });
+    });
+
+    siguienteBtn?.addEventListener("click", nuevaCita);
+    nuevaCita();
+  });
+</script>
+
+<style>
+  .qld-carta {
+    max-width: 420px;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .qld-carta__texto {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 19px;
+    line-height: 1.6;
+    margin-bottom: var(--space-5);
+    min-height: 4.5em;
+  }
+
+  .qld-carta__opciones {
+    display: flex;
+    gap: var(--space-3);
+    justify-content: center;
+  }
+
+  .qld-carta__opciones button {
+    flex: 1;
+    max-width: 160px;
+    font-family: var(--font-sans);
+    font-size: 15px;
+    padding: var(--space-3) var(--space-4);
+    background: rgba(251, 248, 241, 0.08);
+    border: 1px solid rgba(251, 248, 241, 0.3);
+    border-radius: var(--radius-sm);
+    color: var(--color-surface);
+    cursor: pointer;
+  }
+
+  .qld-carta__opciones button:disabled {
+    cursor: default;
+  }
+
+  .qld-opcion--ok {
+    border-color: var(--color-accent-2) !important;
+    background: rgba(122, 138, 106, 0.35) !important;
+  }
+
+  .qld-opcion--mal {
+    border-color: var(--color-accent) !important;
+    background: rgba(168, 66, 47, 0.35) !important;
+  }
+
+  .qld-carta__feedback {
+    margin-top: var(--space-4);
+    min-height: 1.5em;
+  }
+
+  .qld-carta__siguiente {
+    margin-top: var(--space-3);
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    font-size: 12px;
+    padding: var(--space-3) var(--space-5);
+    background: transparent;
+    border: 1px solid var(--color-surface);
+    color: var(--color-surface);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+  }
+</style>

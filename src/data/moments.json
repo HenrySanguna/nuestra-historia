@@ -1,0 +1,335 @@
+{
+  "meta": {
+    "nombres": {
+      "el": "Henry",
+      "ella": "Eliana"
+    },
+    "fecha_primer_contacto": "2025-10-21",
+    "fecha_inicio_oficial": "2026-04-20",
+    "pendientes": []
+  },
+  "como_empezo": {
+    "titulo": "Cómo empezó todo",
+    "narrativa": [
+      {
+        "fecha": "2025-01-11",
+        "texto": "Su primer viaje juntos, como amigos, mucho antes de ser pareja: Oporto, Portugal."
+      },
+      {
+        "fecha": "2025-10-21",
+        "texto": "Se cruzan por primera vez en Instagram."
+      },
+      {
+        "fecha": "2025-11",
+        "texto": "Charlas casuales: Henry vuelve de un viaje a Ecuador (visitó a su familia), y hablan de un grupo de senderismo de la comunidad latina en Madrid al que Eliana se anima a unirse.",
+        "cita": {
+          "quien": "Henry",
+          "texto": "Ufff lo he pasado muy muy bien. Sobretodo con mi familia"
+        }
+      },
+      {
+        "fecha": "2025-12 a 2026-03",
+        "texto": "Silencio. Meses sin hablar."
+      },
+      {
+        "fecha": "2026-04-17",
+        "texto": "Se reencuentran. Empieza con bromas — así nace el mote 'Fiona'.",
+        "cita": {
+          "quien": "Eliana",
+          "texto": "No me voy a enfadar porque hoy 3 compis me dijeron que me veían radiante y Preciosa!!"
+        }
+      },
+      {
+        "fecha": "2026-04-19",
+        "texto": "Henry le dice que necesitan hablar en persona.",
+        "cita": {
+          "quien": "Henry",
+          "texto": "Pero yo quiero que hablemos en persona"
+        }
+      },
+      {
+        "fecha": "2026-04-20",
+        "texto": "La conversación decisiva. Deciden empezar algo juntos — este es el día oficial.",
+        "cita": {
+          "quien": "Henry",
+          "texto": "Todavía sigo sonriendo por la tarde de hoy. Estoy inmensamente feliz de que nos hayamos sincerado y de tener esta oportunidad de empezar a conocernos de una manera nueva."
+        }
+      },
+      {
+        "fecha": "2026-04-21",
+        "texto": "La respuesta de Eliana — nerviosa y en paz a la vez.",
+        "cita": {
+          "quien": "Eliana",
+          "texto": "Estaba nerviosa y a la vez tranquila... y hoy tuvimos una tarde muy especial."
+        }
+      },
+      {
+        "fecha": "2026-04-22 a 04-23",
+        "texto": "Los primeros 'te quiero'. Nace 'mi princesa'.",
+        "cita": {
+          "quien": "Eliana",
+          "texto": "Te quiero te quiero mi amor!"
+        }
+      },
+      {
+        "fecha": "2026-05-01 a 05-02",
+        "texto": "Coincidencia curiosa: cada uno se va de viaje por su lado (Henry con Vini hacia Francia, Eliana con su hermana a París) y los dos escriben casi lo mismo el mismo día: 'empezamos el viaje'."
+      },
+      {
+        "fecha": "2026-06-01",
+        "texto": "Henry felicita a Eliana por una certificación profesional."
+      },
+      {
+        "fecha": "2026-06-19",
+        "texto": "Eliana se gradúa del máster. Henry prepara una sorpresa: vasitos con golosinas, un dibujo del diploma, cartas escritas a mano, y celebran con la familia de Eliana."
+      },
+      {
+        "fecha": "2026-06-20",
+        "texto": "El primer 'te amo' (no 'te quiero') se dice esa madrugada, después de la graduación.",
+        "cita": {
+          "quien": "Henry",
+          "texto": "Te amo mujercita de mi vida"
+        }
+      },
+      {
+        "fecha": "2026-07-10",
+        "texto": "Una desconocida en la calle le dice a Eliana lo bonitas que son las flores que Henry le regaló."
+      },
+      {
+        "fecha": "2026-08-29",
+        "texto": "Eliana habla por primera vez con los papás de Henry, por videollamada."
+      },
+      {
+        "fecha": "2026-09",
+        "texto": "Planean una escapada para finales de septiembre."
+      }
+    ]
+  },
+  "mensajes_destacados": [
+    {
+      "fecha": "2026-04-22",
+      "quien": "Henry",
+      "texto": "Desde el lunes tú ya eres la única mujer con la que quiero formar una relación basada en el respeto mutuo, así que no tienes que estar celosa princesa, mi interés está solo en tí y te respetaré tal como tú te lo mereces 😘"
+    },
+    {
+      "fecha": "2026-04-24",
+      "quien": "Henry",
+      "texto": "Amor yo con poder tenerte conmigo, poder abrazarte, que te acuestes en mi pecho, darte muchos besos. Eso ya es demasiado para mí, es un regalo de la vida"
+    },
+    {
+      "fecha": "2026-04-30",
+      "quien": "Henry",
+      "texto": "Mi vida cuando puedas mira la luna. Está hermosa. Te la dedico 😘😘"
+    },
+    {
+      "fecha": "2026-05-07",
+      "quien": "Henry",
+      "texto": "Estoy muy agradecido porque a veces yo me ponía a pensar en qué tal vez ya me quedaría sólo... pero la vida es recíproca creo yo, al querer hacer las cosas bien, tratar de ser buena persona, de mejorar, todo eso creo que es lo que me ha llevado a poder conocer una mujer como tú."
+    },
+    {
+      "fecha": "2026-05-07",
+      "quien": "Eliana",
+      "texto": "Creo que sigo sin creerme todavía que estemos así, cuando hace menos de un mes nuestra relación era tan diferente... Has llegado a mi vida para darme la esperanza de un amor sano, bonito y duradero; y me emociona la posibilidad de que algún día tengamos un hogar 🏡❤️"
+    },
+    {
+      "fecha": "2026-05-07",
+      "quien": "Eliana",
+      "texto": "Mi amor leí tu carta como 5 veces y me encanta ver todo lo que sientes, lo que provoco en ti y sobre todo todo lo que haces por mí. Eres tierno, amable, generoso, cariñoso, romántico, respetuoso, aventurero, independiente, inteligente, alegre, comprensivo, paciente… te súper quiero mi amor ❤️👾"
+    },
+    {
+      "fecha": "2026-05-12",
+      "quien": "Henry",
+      "texto": "Mi princesa eres como una estrella fugaz en medio de millones y millones de estrellas en el cielo, y he tenido de suerte de poder encontrarte."
+    },
+    {
+      "fecha": "2026-05-17",
+      "quien": "Henry",
+      "texto": "A mí se me hace nada el viaje si sé que voy a pasar así sea un ratito contigo, llegar y que me recibas una sonrisa hace que me olvide de todo."
+    },
+    {
+      "fecha": "2026-05-30",
+      "quien": "Henry",
+      "texto": "Cada momento con mi princesa lo guardo en mi corazón. Amor, tú y sólo tú eres la mujer de mis pensamientos, la que está en mis metas a futuro, eres quien espero me lleve a cumplir el mayor sueño de mi vida, que es formar una familia."
+    },
+    {
+      "fecha": "2026-06-10",
+      "quien": "Henry",
+      "texto": "Amor eres como el universo, que en su inmensidad, el cerebro humano ni siquiera puede imaginar, no puede comprender del todo."
+    },
+    {
+      "fecha": "2026-06-16",
+      "quien": "Henry",
+      "texto": "Tú ocupas un lugar muy importante y bonito en mi corazón amor. Cuidaré de ti, por todo lo bueno y momentos que aún nos faltan por vivir juntos, eres mi princesa, mi mejor amiga, mi novia."
+    },
+    {
+      "fecha": "2026-06-20",
+      "quien": "Eliana",
+      "texto": "Te amo mi amor. Hoy me he sentido tan querida por ti y por mi familia!!!, Sé que has organizado todo tú amor!!!"
+    },
+    {
+      "fecha": "2026-06-20",
+      "quien": "Henry",
+      "texto": "Yo te amo mi vida, hoy fue tu graduación y claro que tenía que celebrarle a mi princesa. Todo lo hice con mucho amor mi vida."
+    },
+    {
+      "fecha": "2026-06-20",
+      "quien": "Eliana",
+      "texto": "Amor pero hoy te pasaste mi vida!!!, había muchos detalles amor!!, los vasitos con golosinas, el dibujo del diploma, las cartas..."
+    },
+    {
+      "fecha": "2026-07-04",
+      "quien": "Henry",
+      "texto": "Es tan bonito querernos tanto, pero es aún mejor saber que estamos construyendo un amor sano, nos escuchamos el uno al otro... no somos perfectos e incluso con esa imperfección nos queremos, seguimos aquí, mejorando, aprendiendo."
+    },
+    {
+      "fecha": "2026-07-04",
+      "quien": "Eliana",
+      "texto": "Tú y yo estamos construyendo algo muy bonito y fuerte... eso es gracias a que tú estás haciendo que yo confíe y deje de estar a la defensiva amorcito"
+    },
+    {
+      "fecha": "2026-07-20",
+      "quien": "Henry",
+      "texto": "Vamos a por más y más momentos juntos mi vida, es un regalo cada momento, cada día junto a tí mi vida."
+    },
+    {
+      "fecha": "2026-07-25",
+      "quien": "Henry",
+      "texto": "Tú eres mi mejor amiga... eres alguien tan especial, una mujer tan interesante, inteligente, me sigues sorprendiendo cada día."
+    },
+    {
+      "fecha": "2026-07-29",
+      "quien": "Henry",
+      "texto": "Contigo me atrevo a cosas que antes ni intentaba, y hasta me caigo mejor a mí mismo. Te quiero con locura, y quiero seguir queriéndote hasta que estemos viejitos (bueno usted más viejita)"
+    },
+    {
+      "fecha": "2026-09-02",
+      "quien": "Henry",
+      "texto": "Amor quiero que siempre se sienta así, que mi amor sea tan grande que mi princesa esté muy feliz sintiéndose amada."
+    },
+    {
+      "fecha": "2026-09-04",
+      "quien": "Henry",
+      "texto": "Yo también siempre me gusta mirar tus fotos, tus capturas, mi mujercita loquita que tanto amo."
+    }
+  ],
+  "momentos_unicos": [
+    {
+      "titulo": "El mote 'Fiona'",
+      "texto": "Nace en las bromas del reencuentro de abril — Henry la llama así en tono cariñoso-molesto, y se queda para siempre."
+    },
+    {
+      "titulo": "El emoji 👾 'Maximiliano'",
+      "texto": "Un emoji que empieza siendo de Henry y termina siendo 'de los dos'. Le ponen hasta nombre."
+    },
+    {
+      "titulo": "El colgante",
+      "texto": "A los pocos días de empezar la relación, Henry le compra un colgante — el primer regalo."
+    },
+    {
+      "titulo": "El grupo de senderismo",
+      "texto": "El lugar donde su historia empieza a tejerse de verdad: rutas los domingos con la comunidad latina de Madrid."
+    },
+    {
+      "titulo": "Los viajes paralelos",
+      "texto": "El mismo fin de semana de principios de mayo, cada uno se fue de viaje por su lado — y sin ponerse de acuerdo, los dos escribieron casi la misma frase: 'empezamos el viaje'."
+    },
+    {
+      "titulo": "La luna llena",
+      "texto": "Una noche de abril, Henry le dedica la luna llena — 'siempre que puedo me gusta mirarla, y me recordó a tí'."
+    },
+    {
+      "titulo": "La sorpresa de la graduación",
+      "texto": "Vasitos con golosinas, un dibujo hecho a mano del diploma, cartas — la sorpresa que Henry preparó para la graduación del máster de Eliana. Esa noche se dicen 'te amo' por primera vez."
+    },
+    {
+      "titulo": "Las flores en la calle",
+      "texto": "Una desconocida se detiene en la calle solo para decirle a Eliana lo bonitas que son las flores que Henry le regaló."
+    },
+    {
+      "titulo": "Que gane Portugal",
+      "texto": "Henry viendo un partido de fútbol en un centro comercial, con Eliana advirtiéndole en broma que no celebre demasiado los goles."
+    },
+    {
+      "titulo": "La parejita",
+      "texto": "Una noche hablan de un sueño compartido: formar una familia — Henry ya hasta se imagina cómo sería con un niño y una niña."
+    }
+  ],
+  "mas_fuertes": {
+    "titulo": "Lo que nos ha hecho más fuertes",
+    "texto": "No todo ha sido perfecto, y no tendría por qué serlo. Ha habido semanas duras, momentos en los que hubo que parar, hablar, y a veces simplemente aguantar el silencio hasta encontrar las palabras correctas. Pero cada una de esas veces la superamos juntos — y en lugar de alejarnos, nos dejó con mejores bases: más honestidad, más paciencia, más ganas de cuidar lo que estamos construyendo. Todo lo que hemos pasado nos ha traído hasta hoy, con una relación más fuerte que la de ayer."
+  },
+  "carta_final": {
+    "titulo": "Para ti",
+    "nota_para_henry": "Este espacio queda vacío a propósito — es el único texto de la página que de verdad tiene que salir de ti. Puedo ayudarte a pulirlo si me traes un borrador."
+  },
+  "razones": {
+    "titulo": "Razones, una a una",
+    "items": [
+      "Porque me gusta muchísimo tu risa.",
+      "Porque cocinas rico — lo dijiste tú, lo confirmo yo.",
+      "Porque cambias tu forma de hablar cuando quieres ser tierna, y siempre se te nota.",
+      "Porque cada vez que me despierto, tú eres mi primer pensamiento.",
+      "Porque te pones a jugar como una niña y eso me encanta.",
+      "Porque cuidas a tu mamá con esa sonrisa tan tuya.",
+      "Porque me cuentas hasta lo más pequeño de tu día, y para mí nunca es poca cosa.",
+      "Porque cada cosita que voy descubriendo de ti me sigue fascinando.",
+      "Porque eres de las que logra todo lo que se propone.",
+      "Porque tienes una mente brillante, aunque tú no siempre te lo creas.",
+      "Porque me haces sentir en casa con solo decirme 'mi amor'.",
+      "Porque te emociona tanto como a mí decir que somos novios.",
+      "Porque tienes valores, metas, y un amor enorme por tu familia.",
+      "Porque contigo me atrevo a cosas que antes ni intentaba.",
+      "Porque me sigues sorprendiendo, incluso ahora."
+    ]
+  },
+  "vales": {
+    "titulo": "Vales que puedes canjear cuando quieras",
+    "items": [
+      {
+        "title": "Otra sorpresa con detalles",
+        "note": "Vasitos con golosinas, un dibujo, cartas a mano — como en tu graduación.",
+        "code": "V-01"
+      },
+      {
+        "title": "Una noche de luna llena",
+        "note": "Te la vuelvo a dedicar, como aquella vez.",
+        "code": "V-02"
+      },
+      {
+        "title": "Una ruta solo para dos",
+        "note": "Como las del grupo de los domingos, pero sin nadie más.",
+        "code": "V-03"
+      },
+      {
+        "title": "Te cocino yo",
+        "note": "Aunque cocines mejor que yo, esta vez le toca descansar a la chef.",
+        "code": "V-04"
+      },
+      {
+        "title": "Un partido de Ecuador juntos",
+        "note": "Con la camiseta puesta, sin perdernos ni un gol.",
+        "code": "V-05"
+      },
+      {
+        "title": "Flores sin motivo",
+        "note": "Como aquella vez — solo porque sí.",
+        "code": "V-06"
+      }
+    ]
+  },
+  "lista_futuro": {
+    "titulo": "La lista del futuro",
+    "items": [
+      "Vivir juntos",
+      "Tener un perrito",
+      "Casarnos",
+      "Tener a nuestra parejita — un niño y una niña",
+      "Tener un hogar propio",
+      "Que conozcas mi Ecuador",
+      "Envejecer juntos"
+    ]
+  },
+  "media_pendiente": {
+    "nota": "Henry usará fotos/vídeos alojados en su Google Drive para el contenido curado inicial. Además, quiere que Eliana pueda subir sus propias fotos/vídeos después de recibir la página. Arquitectura pendiente de decidir entre Henry y Claude — ver opciones propuestas en el chat."
+  }
+}

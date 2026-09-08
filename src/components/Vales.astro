@@ -1,0 +1,155 @@
+---
+import type { Vales as ValesData } from "../data/types";
+
+interface Props {
+  data: ValesData;
+}
+
+const { data } = Astro.props;
+const total = data.items.length;
+---
+
+{
+  total > 0 && (
+    <section id="vales" class="seccion" aria-labelledby="vales-titulo">
+      <header class="seccion__cabecera reveal">
+        <p class="label-meta" data-vales-resumen>
+          {total} sin usar · sin caducidad
+        </p>
+        <h2 id="vales-titulo">{data.titulo}</h2>
+      </header>
+
+      <ul class="vales-lista" data-vales-lista>
+        {data.items.map((vale) => (
+          <li class="vale reveal" data-vale-codigo={vale.code}>
+            <button type="button" class="vale__boton" data-vale-boton>
+              <span class="vale__cabecera">
+                <span class="vale__titulo">{vale.title}</span>
+                <span class="label-meta">{vale.code}</span>
+              </span>
+              <span class="vale__descripcion">{vale.note}</span>
+              <span class="label-meta vale__estado" data-vale-estado>sin canjear</span>
+            </button>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
+}
+
+<script>
+  const STORAGE_KEY = "nuestra-historia:vales-canjeados";
+
+  function leerCanjeados(): string[] {
+    try {
+      return JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "[]");
+    } catch {
+      return [];
+    }
+  }
+
+  function guardarCanjeados(codigos: string[]) {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(codigos));
+    } catch {
+      /* localStorage no disponible: la sesión sigue funcionando sin persistir */
+    }
+  }
+
+  const lista = document.querySelector<HTMLElement>("[data-vales-lista]");
+  const resumen = document.querySelector<HTMLElement>("[data-vales-resumen]");
+  if (lista) {
+    const canjeados = new Set(leerCanjeados());
+    const vales = Array.from(lista.querySelectorAll<HTMLElement>("[data-vale-codigo]"));
+
+    function pintar() {
+      vales.forEach((vale) => {
+        const codigo = vale.dataset.valeCodigo ?? "";
+        const estado = vale.querySelector<HTMLElement>("[data-vale-estado]");
+        const usado = canjeados.has(codigo);
+        vale.classList.toggle("vale--canjeado", usado);
+        if (estado) estado.textContent = usado ? "canjeado" : "sin canjear";
+      });
+      if (resumen) {
+        const sinUsar = vales.length - canjeados.size;
+        resumen.textContent = `${sinUsar} sin usar · sin caducidad`;
+      }
+    }
+
+    lista.addEventListener("click", (event) => {
+      const boton = (event.target as HTMLElement).closest<HTMLElement>("[data-vale-boton]");
+      const vale = boton?.closest<HTMLElement>("[data-vale-codigo]");
+      const codigo = vale?.dataset.valeCodigo;
+      if (!codigo) return;
+      if (canjeados.has(codigo)) {
+        canjeados.delete(codigo);
+      } else {
+        canjeados.add(codigo);
+      }
+      guardarCanjeados([...canjeados]);
+      pintar();
+    });
+
+    pintar();
+  }
+</script>
+
+<style>
+  .vales-lista {
+    list-style: none;
+    max-width: 480px;
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .vale__boton {
+    width: 100%;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding: var(--space-4) var(--space-5);
+    background: var(--color-surface);
+    border: none;
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-soft);
+    cursor: pointer;
+    font: inherit;
+    color: inherit;
+  }
+
+  .vale__cabecera {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--space-3);
+  }
+
+  .vale__titulo {
+    font-family: var(--font-serif);
+    font-size: 18px;
+  }
+
+  .vale__descripcion {
+    font-size: 14px;
+    color: var(--color-ink-soft);
+  }
+
+  .vale__estado {
+    color: var(--color-accent-2);
+  }
+
+  .vale--canjeado .vale__boton {
+    opacity: 0.55;
+  }
+
+  .vale--canjeado .vale__titulo {
+    text-decoration: line-through;
+  }
+
+  .vale--canjeado .vale__estado {
+    color: var(--color-ink-faint);
+  }
+</style>

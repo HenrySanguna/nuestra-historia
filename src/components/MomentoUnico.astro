@@ -1,0 +1,92 @@
+---
+import type { MomentoUnico } from "../data/types";
+
+interface Props {
+  momentos: MomentoUnico[];
+}
+
+const { momentos } = Astro.props;
+const total = momentos.length;
+const tonos = ["tono-a", "tono-b", "tono-c", "tono-d"] as const;
+---
+
+{
+  total > 0 && (
+    <section id="momentos" class="seccion" aria-labelledby="momentos-titulo">
+      <header class="seccion__cabecera reveal">
+        <p class="label-meta">capítulo · {total} momentos</p>
+        <h2 id="momentos-titulo">Cosas que solo entendemos nosotros</h2>
+      </header>
+
+      <div class="mosaico">
+        {momentos.map((momento, i) => (
+          <details class={`tile ${tonos[i % tonos.length]} reveal`}>
+            <summary class="tile__titulo">{momento.titulo}</summary>
+            <p class="tile__texto">{momento.texto}</p>
+            {momento.imagen && <img src={momento.imagen} alt="" loading="lazy" />}
+            {momento.video && <video src={momento.video} controls preload="none" />}
+          </details>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .mosaico {
+    max-width: 640px;
+    margin-inline: auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-3);
+  }
+
+  .tile {
+    border-radius: var(--radius-card);
+    padding: var(--space-4);
+    cursor: pointer;
+  }
+
+  .tile__titulo {
+    font-family: var(--font-serif);
+    font-size: 16px;
+    list-style: none;
+  }
+
+  .tile__titulo::-webkit-details-marker {
+    display: none;
+  }
+
+  .tile__texto {
+    margin-top: var(--space-3);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .tile img,
+  .tile video {
+    margin-top: var(--space-3);
+    border-radius: var(--radius-sm);
+  }
+
+  .tono-a {
+    background: var(--color-ink);
+    color: var(--color-surface);
+  }
+
+  .tono-b {
+    background: var(--color-accent);
+    color: var(--color-surface);
+  }
+
+  .tono-c {
+    background: var(--color-accent-2);
+    color: var(--color-surface);
+  }
+
+  .tono-d {
+    background: var(--color-surface);
+    color: var(--color-ink);
+    box-shadow: var(--shadow-soft);
+  }
+</style>
