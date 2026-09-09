@@ -124,6 +124,16 @@ const cards = photos.map((photo, index) => {
     margin-inline: auto;
     cursor: pointer;
     user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .pila:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 4px;
+  }
+
+  .pila:focus:not(:focus-visible) {
+    outline: none;
   }
 
   .pila__tarjeta {
