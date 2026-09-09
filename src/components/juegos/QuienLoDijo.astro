@@ -1,20 +1,14 @@
 ---
-import type { NarrativaItem, MensajeDestacado, Meta } from "../../data/types";
+import type { QuienLoDijo, Meta } from "../../data/types";
 
 interface Props {
-  narrativa: NarrativaItem[];
-  mensajes: MensajeDestacado[];
+  data: QuienLoDijo;
   meta: Meta;
 }
 
-const { narrativa, mensajes, meta } = Astro.props;
+const { data, meta } = Astro.props;
 
-const citas = [
-  ...narrativa
-    .filter((item) => item.cita)
-    .map((item) => ({ texto: item.cita!.texto, quien: item.cita!.quien })),
-  ...mensajes.map((m) => ({ texto: m.texto, quien: m.quien })),
-];
+const citas = data.items.map((item) => ({ texto: item.texto, quien: item.quien }));
 ---
 
 {
@@ -22,7 +16,7 @@ const citas = [
     <section id="juego-quien-lo-dijo" class="seccion juego" aria-labelledby="quien-lo-dijo-titulo">
       <header class="seccion__cabecera reveal">
         <p class="label-meta">juego · quién lo dijo</p>
-        <h2 id="quien-lo-dijo-titulo">¿Tú o yo?</h2>
+        <h2 id="quien-lo-dijo-titulo">{data.titulo}</h2>
       </header>
 
       <div

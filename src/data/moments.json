@@ -212,6 +212,91 @@
       "texto": "Yo también siempre me gusta mirar tus fotos, tus capturas, mi mujercita loquita que tanto amo."
     }
   ],
+  "quien_lo_dijo": {
+    "titulo": "¿Quién lo dijo?",
+    "items": [
+      {
+        "quien": "Henry",
+        "texto": "Que estemos de viaje no quiere decir que me olvide de dejarte un mensaje. Seré constante y firme para demostrarte lo mucho que te quiero."
+      },
+      {
+        "quien": "Henry",
+        "texto": "La luna es una de las cosas que más me gusta en el mundo, siempre que puedo me gusta mirarla."
+      },
+      {
+        "quien": "Henry",
+        "texto": "Tú eres quien quiero a mi lado, totalmente, sin dudas, sin otras cosas. Eres tú y quiero que siempre seas tú."
+      },
+      {
+        "quien": "Henry",
+        "texto": "Amor, vamos despacio ¿verdad? Jajajaja. Y nosotros hablando ya mucho de casarnos y tener nuestros dos hijos."
+      },
+      {
+        "quien": "Henry",
+        "texto": "El miedo no puede ganarle a nuestros sentimientos, a lo bonito y a todo el futuro juntos que queremos."
+      },
+      {
+        "quien": "Henry",
+        "texto": "Esa sensación llega así, con cosas pequeñas — una mirada tuya y me recorre todo el cuerpo."
+      },
+      {
+        "quien": "Henry",
+        "texto": "Es tan bonito querernos tanto, pero es aún mejor saber que estamos construyendo un amor sano."
+      },
+      {
+        "quien": "Henry",
+        "texto": "Contigo me atrevo a cosas que antes ni intentaba."
+      },
+      {
+        "quien": "Henry",
+        "texto": "Vamos a por más y más momentos juntos, es un regalo cada momento, cada día."
+      },
+      {
+        "quien": "Henry",
+        "texto": "Eres como el universo, que en su inmensidad, el cerebro humano no puede comprender del todo."
+      },
+      {
+        "quien": "Eliana",
+        "texto": "Si supieras, estoy sensible y llevo todo el día llorando al escuchar música cristiana. Estoy muy feliz!"
+      },
+      {
+        "quien": "Eliana",
+        "texto": "Qué bella tu mami, por cómo eres tú de detallista — se nota que ha sido una excelente madre. Deséale un feliz día de mi parte."
+      },
+      {
+        "quien": "Eliana",
+        "texto": "Estoy viviendo algo tan especial que en el momento no eres consciente de lo especial que es."
+      },
+      {
+        "quien": "Eliana",
+        "texto": "Tengo que seguir con mis proyectos y aprender a incluirte en mis rutinas sin perderme."
+      },
+      {
+        "quien": "Eliana",
+        "texto": "Tenemos que cuidarlo y guardarlo, para que se mantenga e incluso crezca."
+      },
+      {
+        "quien": "Eliana",
+        "texto": "Gracias por ser tan especial. No sé qué nos deparará el futuro, pero me has dado cosas muy lindas que recordaré siempre."
+      },
+      {
+        "quien": "Eliana",
+        "texto": "Cada vez me sorprende más todo lo que está pasando entre nosotros."
+      },
+      {
+        "quien": "Eliana",
+        "texto": "Creo que ha sido la mejor decisión: estamos yendo lentito y construyendo algo fuerte antes de dar el siguiente paso. Lo estamos haciendo bien."
+      },
+      {
+        "quien": "Eliana",
+        "texto": "Tenemos que seguir construyendo algo lindo y fuerte, basado en nuestros valores y en mucho amor."
+      },
+      {
+        "quien": "Eliana",
+        "texto": "La verdad es que sí me gustaría — siento que los niños son más apegados a la mamá jajaja, aunque sería muy nuevo para mí."
+      }
+    ]
+  },
   "momentos_unicos": [
     {
       "titulo": "El apodo 'Fiona'",
@@ -342,6 +427,7 @@
     ]
   },
   "media_pendiente": {
-    "nota": "Henry usará fotos/vídeos alojados en su Google Drive para el contenido curado inicial. Además, quiere que Eliana pueda subir sus propias fotos/vídeos después de recibir la página. Arquitectura pendiente de decidir entre Henry y Claude — ver opciones propuestas en el chat."
+    "nota": "Álbum colaborativo de Google Photos: Eliana puede subir sus propias fotos/vídeos ahí directamente.",
+    "album_colaborativo_url": "https://photos.app.goo.gl/LY7gUP6DvT3TatNe9"
   }
 }

@@ -32,6 +32,16 @@ const tonos = ["tono-a", "tono-b", "tono-c", "tono-d"] as const;
   )
 }
 
+<script>
+  document.querySelectorAll<HTMLDetailsElement>(".tile").forEach((tile) => {
+    tile.addEventListener("click", (e) => {
+      const target = e.target as HTMLElement;
+      if (target.closest("summary") || target.closest("video")) return;
+      tile.open = !tile.open;
+    });
+  });
+</script>
+
 <style>
   .mosaico {
     max-width: 640px;

@@ -1,0 +1,171 @@
+---
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+
+const imageModules = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/media/*.{jpg,jpeg,png}",
+  { eager: true }
+);
+
+const photos = Object.entries(imageModules)
+  .sort(([a], [b]) => a.localeCompare(b))
+  .map(([, mod], i) => ({
+    src: mod.default,
+    alt: `Foto ${i + 1} de Henry y Eliana`,
+  }));
+
+const ROT_MAG = [1.6, 3.4, 4.6, 5.2];
+const OPACITY = [1, 0.92, 0.72, 0.5];
+
+function poseFor(depth: number, total: number) {
+  const sign = depth % 2 === 0 ? -1 : 1;
+  const mag = ROT_MAG[depth] ?? 5.2 + (depth - 3) * 0.5;
+  const rotate = sign * mag;
+  const y = -7 * depth;
+  const scale = Math.max(0.7, 1 - 0.025 * depth);
+  const opacity = depth <= 3 ? OPACITY[depth] : Math.max(0, 0.5 - (depth - 3) * 0.15);
+  const z = total - depth;
+  return { rotate, y, scale, opacity, z };
+}
+
+const cards = photos.map((photo, index) => {
+  const pose = poseFor(index, photos.length);
+  return { ...photo, index, pose };
+});
+---
+
+<div
+  class="pila"
+  role="button"
+  tabindex="0"
+  aria-label="siguiente foto"
+  data-total={photos.length}
+>
+  {
+    cards.map((card) => (
+      <div
+        class:list={["pila__tarjeta", card.index === 0 && "pila__tarjeta--front"]}
+        data-index={card.index}
+        style={`transform: translateY(${card.pose.y}px) rotate(${card.pose.rotate}deg) scale(${card.pose.scale}); z-index: ${card.pose.z}; opacity: ${card.pose.opacity};`}
+      >
+        <div class="pila__cuerpo">
+          <Image src={card.src} alt={card.alt} class="pila__foto" width={270} height={242} />
+        </div>
+      </div>
+    ))
+  }
+  <p class="pila__anuncio" aria-live="polite"></p>
+</div>
+
+<script>
+  const ROT_MAG = [1.6, 3.4, 4.6, 5.2];
+  const OPACITY = [1, 0.92, 0.72, 0.5];
+
+  function poseFor(depth: number, total: number) {
+    const sign = depth % 2 === 0 ? -1 : 1;
+    const mag = ROT_MAG[depth] ?? 5.2 + (depth - 3) * 0.5;
+    const rotate = sign * mag;
+    const y = -7 * depth;
+    const scale = Math.max(0.7, 1 - 0.025 * depth);
+    const opacity = depth <= 3 ? OPACITY[depth] : Math.max(0, 0.5 - (depth - 3) * 0.15);
+    const z = total - depth;
+    return { rotate, y, scale, opacity, z };
+  }
+
+  document.querySelectorAll<HTMLElement>(".pila").forEach((container) => {
+    const total = Number(container.dataset.total);
+    if (!total) return;
+
+    const tarjetas = Array.from(container.querySelectorAll<HTMLElement>(".pila__tarjeta"));
+    const anuncio = container.querySelector<HTMLElement>(".pila__anuncio");
+    let activeIndex = 0;
+
+    function render() {
+      for (const tarjeta of tarjetas) {
+        const cardIndex = Number(tarjeta.dataset.index);
+        const depth = (cardIndex - activeIndex + total) % total;
+        const pose = poseFor(depth, total);
+        tarjeta.style.transform = `translateY(${pose.y}px) rotate(${pose.rotate}deg) scale(${pose.scale})`;
+        tarjeta.style.zIndex = String(pose.z);
+        tarjeta.style.opacity = String(pose.opacity);
+        tarjeta.classList.toggle("pila__tarjeta--front", cardIndex === activeIndex);
+      }
+      if (anuncio) anuncio.textContent = `Foto ${activeIndex + 1} de ${total}`;
+    }
+
+    function advance() {
+      activeIndex = (activeIndex + 1) % total;
+      render();
+    }
+
+    let downX = 0;
+    container.addEventListener("pointerdown", (e) => {
+      downX = e.clientX;
+    });
+    container.addEventListener("pointerup", (e) => {
+      const deltaX = e.clientX - downX;
+      if (Math.abs(deltaX) < 10 || Math.abs(deltaX) > 60) advance();
+    });
+    container.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        advance();
+      }
+    });
+  });
+</script>
+
+<style>
+  .pila {
+    position: relative;
+    width: 100%;
+    max-width: 350px;
+    height: 372px;
+    margin-inline: auto;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .pila__tarjeta {
+    position: absolute;
+    left: 50%;
+    margin-left: -135px;
+    top: 18px;
+    width: 270px;
+    transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1), opacity 0.45s ease;
+    box-shadow: 0 8px 22px -10px rgba(33, 29, 26, 0.45);
+  }
+
+  .pila__tarjeta--front {
+    box-shadow: 0 14px 30px -12px rgba(33, 29, 26, 0.5);
+  }
+
+  .pila__cuerpo {
+    background: var(--color-surface);
+    padding: 9px 9px 30px;
+    border-radius: 0;
+  }
+
+  .pila__foto {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    background: var(--color-surface);
+  }
+
+  .pila__anuncio {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pila__tarjeta {
+      transition-duration: 0.01ms;
+    }
+  }
+</style>

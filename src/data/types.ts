@@ -33,6 +33,16 @@ export interface MensajeDestacado {
   imagen?: string;
 }
 
+export interface QuienLoDijoItem {
+  quien: string;
+  texto: string;
+}
+
+export interface QuienLoDijo {
+  titulo: string;
+  items: QuienLoDijoItem[];
+}
+
 export interface MomentoUnico {
   titulo: string;
   texto: string;
@@ -81,6 +91,7 @@ export interface MomentsData {
   meta: Meta;
   como_empezo: ComoEmpezo;
   mensajes_destacados: MensajeDestacado[];
+  quien_lo_dijo: QuienLoDijo;
   momentos_unicos: MomentoUnico[];
   mas_fuertes: MasFuertes;
   carta_final: CartaFinal;
